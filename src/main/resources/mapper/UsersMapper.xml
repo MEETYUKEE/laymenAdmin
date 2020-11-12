@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.plus.mapper.UsersMapper">
+
+    <resultMap id="BaseResultMap" type="com.hy.plus.entity.Users">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="status" property="status"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="findByUserName" type="com.hy.plus.vo.UsersVo">
+        <collection property="roles" ofType="string">
+            <result column="role_name"/>
+        </collection>
+        <collection property="permission" ofType="string">
+            <result column="permission_name"/>
+        </collection>
+    </resultMap>
+
+    <!--  注： 该sql仅供登录验证时使用。 单独执行sql 存在笛卡尔积问题  -->
+    <select id="findByUserName" resultMap="findByUserName">
+        SELECT
+            us.*,
+            ro.role_name,
+            pe.permission_name
+        FROM
+            users us
+            LEFT JOIN users_roles ur ON us.id = ur.users_id
+            LEFT JOIN roles ro ON ur.roles_id = ro.id
+            LEFT JOIN roles_permission rp ON ro.id = rp.roles_id
+            LEFT JOIN permission pe ON rp.permission_id = pe.id
+        WHERE
+            us.user_name = #{userName}
+    </select>
+
+</mapper>

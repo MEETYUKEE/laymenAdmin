@@ -1,0 +1,40 @@
+server:
+  port: 9095
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/course?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    username: root
+    password: houyi
+  application:
+    name: MyBatis-Plus-Demo
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+    static-path-pattern: /**
+
+mybatis-plus:
+  # 配置枚举 枚举类 扫描路径。
+  type-enums-package: com.hy.plus.enums
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 自定义swagger配置
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: Springfox swagger 3.0
+  try-host: http://localhost:${server.port}
+  token-header: Authorization
+
+#  jwt 参数
+jwt:
+  config:
+    secret: YpIVOjS198RcEpnt1Uo913pcCf7l1Ihfz3Olx4ol
+    expiration-time: 3600
+    header: Authorization

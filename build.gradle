@@ -1,0 +1,54 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'com.hy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compile("org.springframework.boot:spring-boot-starter-web")
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.2'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
+    compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.1.5.Final'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+    compile group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    // https://mvnrepository.com/artifact/cn.hutool/hutool-all
+    compile group: 'cn.hutool', name: 'hutool-all', version: '5.4.2'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.3.4.RELEASE'
+
+
+}
+compileJava.inputs.files(processResources)
+
+test {
+    useJUnitPlatform()
+}
